@@ -1,9 +1,0 @@
-application_id,candidate,job,company,status,salary
-1,Yassine,Data Engineer,Capgemini,accepted,12000
-2,Ahmed,Backend Developer,IBM,rejected,10000
-3,Sara,Data Engineer,Microsoft,accepted,14000
-4,Omar,Data Scientist,Google,pending,13000
-5,Salma,Data Engineer,Amazon,accepted,15000
-6,Ali,Backend Developer,IBM,accepted,11000
-7,Nora,Data Scientist,Google,rejected,12500
-8,Hassan,Data Engineer,Capgemini,pending,13000
