@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: superhero_user
+      POSTGRES_PASSWORD: superhero_password
+      POSTGRES_DB: superhero_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U superhero_user -d superhero_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  extract_job:
+    build: .
+    volumes:
+      - data_lake:/app/data_lake
+    command: ["python", "extract.py"]
+
+  transform_load_job:
+    build: .
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=superhero_user
+      - DB_PASSWORD=superhero_password
+      - DB_NAME=superhero_db
+    volumes:
+      - data_lake:/app/data_lake
+    depends_on:
+      db:
+        condition: service_healthy
+      extract_job:
+        condition: service_completed_successfully
+    command: ["python", "transform_load.py"]
+
+volumes:
+  postgres_data:
+  data_lake:

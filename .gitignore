@@ -1,0 +1,22 @@
+# Virtual Environments
+venv/
+.venv/
+env/
+.env
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Data
+data/
+data_lake/
+*.csv
+*.parquet
+
+# Docker
+docker-compose.override.yml
+
+# IDEs
+.vscode/
+.idea/
